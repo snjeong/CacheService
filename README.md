@@ -16,7 +16,15 @@ In-Memory Cache Service
 ## 테스트 ##
 - Swagger 를 통해 API 테스트를 수행할 수 있습니다.
 
-**REST-API : http://localhost:8080/swagger-ui.html**
+  REST-API : http://localhost:8080/swagger-ui.html
+  
+- H2 메모리DB 콘솔 : http://localhost:8080/h2-console
+
+```
+  JDBC URL:	jdbc:h2:mem:testdb;
+  
+  User Name: sa
+```
 
 - 캐시 설정값 변경은 application.properties 를 통해 할수 있습니다. 
 
