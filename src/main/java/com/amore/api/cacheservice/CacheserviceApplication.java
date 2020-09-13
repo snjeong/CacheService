@@ -17,16 +17,6 @@ import java.util.List;
 @SpringBootApplication
 public class CacheserviceApplication {
 
-    @Value("${categorycache.timetoliveSeconds}")
-    private long timetoliveSeconds;
-
-    @Value("${categorycache.timetoliveSeconds}")
-    private long timerintervalSeconds;
-
-    @Value("${categorycache.maxItems}")
-    private int maxItems;
-
-
     private final CategoryService categoryService;
 
     private final ProductService productService;
@@ -47,12 +37,7 @@ public class CacheserviceApplication {
             categoryService.loadData();
             productService.loadData();
 
-            List<Product> products = productService.getAll();
-
-/*            for (Product item : products)
-                System.out.println("data" + item.getProductName());*/
-
-            System.out.println("categorycache.timetoliveSeconds" + timetoliveSeconds);
+            System.out.println("load initial data...");
         };
     }
 
