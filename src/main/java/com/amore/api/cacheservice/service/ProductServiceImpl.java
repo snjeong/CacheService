@@ -68,6 +68,14 @@ public class ProductServiceImpl implements ProductService{
                 products.add(product);
         }
 
+        /**
+         * Cache Miss를 최소화 하기 위해 많은 수의 데이터 조회시 원본(DB)과 캐싱된 데이터 크기를 비교하여 캐시 리로딩처리.
+         * 카테고리에 속한 상품리스트 조회에서 수행하는 것이 적절하다.
+         */
+        Long dbCount = productRepository.count(categoryGroupKey);
+        if (products.size() != dbCount)
+            return loadProductsByCategoryNo(categoryGroupKey);
+
         return products;
     }
 
@@ -118,6 +126,14 @@ public class ProductServiceImpl implements ProductService{
         List<Product> list = productRepository.findAll();
         for (Product item : list)
             cache.put(item.getProductNo(), item);
+    }
+
+    private List<Product> loadProductsByCategoryNo(int categoryGroupKey) {
+        List<Product> list = productRepository.findProductsByCategoryNo(categoryGroupKey);
+        for (Product item : list)
+            cache.put(item.getProductNo(), item);
+
+        return list;
     }
 
     @Override
